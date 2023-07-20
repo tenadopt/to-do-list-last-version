@@ -15,3 +15,11 @@
 .error-message {
   color: red;
 }
+
+.active-filter {
+  background-color: aqua;
+}
+
+.isDone {
+  opacity: 50%;
+}
