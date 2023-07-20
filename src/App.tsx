@@ -50,11 +50,7 @@ function App() {
     }
 
     const checkBoxChangeTask = (taskId: string, newIsDoneValue: boolean) => {
-        let task = tasks.find(el => el.id == taskId)
-        if (task) {
-            task.isDone = newIsDoneValue;
-            setTask([...tasks])
-        }
+            setTask(tasks.map(el => el.id === taskId ? {...el, isDone: newIsDoneValue} : el))
     }
 
 
