@@ -3,8 +3,7 @@ import './App.css';
 import {Todolist} from "./Todolist";
 import {v1} from "uuid";
 
-export type FilterValueType = 'All'|'Active'|'Completed'
-
+export type FilterValueType = 'All' | 'Active' | 'Completed'
 
 
 function App() {
@@ -31,7 +30,7 @@ function App() {
 
     const addTask = (title: string) => {
         const newTask = {id: v1(), title: title, isDone: false}
-        setTask([newTask,...tasks])
+        setTask([newTask, ...tasks])
     }
 
     // let tasks1 = [
@@ -50,6 +49,14 @@ function App() {
         setTask(filtredTasks1)
     }
 
+    const checkBoxChangeTask = (taskId: string, newIsDoneValue: boolean) => {
+        let task = tasks.find(el => el.id == taskId)
+        if (task) {
+            task.isDone = newIsDoneValue;
+            setTask([...tasks])
+        }
+    }
+
 
     return (
         <div className="App">
@@ -59,6 +66,7 @@ function App() {
                 removeTask={removeTask}
                 changeFilter={changeFilter}
                 addTask={addTask}
+                checkBoxChangeTask={checkBoxChangeTask}
             />
         </div>
     );
