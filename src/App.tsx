@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
+import {v1} from "uuid";
 
 export type FilterValueType = 'All'|'Active'|'Completed'
 
@@ -8,38 +9,43 @@ export type FilterValueType = 'All'|'Active'|'Completed'
 
 function App() {
     const [tasks, setTask] = useState([
-        {id: 1, title: "HTML&CSS", isDone: true},
-        {id: 2, title: "JS", isDone: true},
-        {id: 3, title: "ReactJS", isDone: false}])
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "ReactJS", isDone: false}])
 
     const [filter, setFilter] = useState<FilterValueType>('All')
 
     let tasksForTodolist = tasks
 
     if (filter === 'Active') {
-        tasksForTodolist = tasks.filter(task => task.isDone === false)
+        tasksForTodolist = tasks.filter(task => !task.isDone)
     }
 
     if (filter === 'Completed') {
-        tasksForTodolist = tasks.filter(task => task.isDone === true)
+        tasksForTodolist = tasks.filter(task => task.isDone)
     }
 
     const changeFilter = (value: FilterValueType) => {
         setFilter(value)
     }
 
-    let tasks1 = [
-        {id: 1, title: "HTML&CSS", isDone: true},
-        {id: 2, title: "JS", isDone: true},
-        {id: 3, title: "ReactJS", isDone: false}
-    ]
-    const tasks2 = [
-        {id: 1, title: "Hello world", isDone: true},
-        {id: 2, title: "I am Happy", isDone: false},
-        {id: 3, title: "Yo", isDone: false}
-    ]
+    const addTask = (title: string) => {
+        const newTask = {id: v1(), title: title, isDone: true}
+        setTask([newTask,...tasks])
+    }
 
-    const removeTask = (id: number) => {
+    // let tasks1 = [
+    //     {id: 1, title: "HTML&CSS", isDone: true},
+    //     {id: 2, title: "JS", isDone: true},
+    //     {id: 3, title: "ReactJS", isDone: false}
+    // ]
+    // const tasks2 = [
+    //     {id: 1, title: "Hello world", isDone: true},
+    //     {id: 2, title: "I am Happy", isDone: false},
+    //     {id: 3, title: "Yo", isDone: false}
+    // ]
+
+    const removeTask = (id: string) => {
         const filtredTasks1 = tasks.filter(el => el.id !== id)
         setTask(filtredTasks1)
     }
@@ -52,6 +58,7 @@ function App() {
                 tasks={tasksForTodolist}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
+                addTask={addTask}
             />
         </div>
     );
