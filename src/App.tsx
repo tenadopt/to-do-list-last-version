@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from "./Todolist";
 import {v1} from "uuid";
+import {AddItemForm} from "./AddItemForm";
 
 export type FilterValueType = 'All' | 'Active' | 'Completed'
 
@@ -46,7 +47,7 @@ function App() {
     }
 
     const changeFilter = (todolistId: string, value: FilterValueType) => {
-        const todolist = todolists.map(el => el.id === todolistId ? el.filter = value : el)
+        todolists.map(el => el.id === todolistId ? el.filter = value : el)
         setTodolists([...todolists])
     }
 
@@ -60,8 +61,22 @@ function App() {
        setTask({...tasks, [todolistId]: tasks[todolistId].filter(el=>el.id!==id)})
     }
 
+    const removeTodolist = (todolistsID: string) => {
+        setTodolists(todolists.filter(el => el.id !== todolistsID))
+        delete tasks[todolistsID]
+        setTask({...tasks})
+    }
+
+    const addTodolist = (title: string) => {
+        const newTodolistId = v1()
+        const newTodolist: TodolistType = {id: newTodolistId, title: title, filter: 'All'}
+        setTodolists([newTodolist,...todolists])
+        setTask({...tasks, [newTodolistId]: []})
+    }
+
     return (
         <div className="App">
+          <AddItemForm addItem={addTodolist}/>
             {todolists.map(todolist => {
                 let tasksForTodolist = tasks[todolist.id]
 
@@ -81,8 +96,9 @@ function App() {
                                  addTask={addTask}
                                  checkBoxChangeTask={checkBoxChangeTask}
                                  filter={todolist.filter}
+                                 removeTodolist={removeTodolist}
                 />
-            })}
+                })}
         </div>
     );
 }

@@ -23,3 +23,7 @@
 .isDone {
   opacity: 50%;
 }
+
+.header {
+  display: flex;
+}
