@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
 
 type EditebleSpanType = {
     value: string
-    onChange: (newTitle: string) => void
+    callBack: (newTitle: string) => void
 }
 
 export const EditebleSpan = (props: EditebleSpanType) => {
@@ -11,17 +11,20 @@ export const EditebleSpan = (props: EditebleSpanType) => {
     const [editMode, setEditMode] = useState(false)
     const [title, setTitle] = useState(props.value)
 
-    const activeViewMode = () => {
-        setEditMode(false)
-        props.onChange(title)
-
+    const onChangeTitleHandler = (e:ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
 
         const activeEditMode = () => {
             setEditMode(true)
-            setTitle(props.value)
+        }
+
+        const onBlurHandler = () => {
+            setEditMode(false)
+            props.callBack(title)
         }
 
         return editMode ?
-            <input value={props.value} onBlur={activeViewMode} autoFocus/> :
+            <input value={title} onChange={onChangeTitleHandler} onBlur={onBlurHandler} /> :
             <span onDoubleClick={activeEditMode}>{props.value}</span>
-    }};
+    };

@@ -74,6 +74,12 @@ function App() {
         setTask({...tasks, [newTodolistId]: []})
     }
 
+    const changeTitle = (todolistId: string, taskId: string, newTitle: string) => {
+        debugger
+        setTask({...tasks, [todolistId] : tasks[todolistId].map(el=>el.id===taskId ? {...el, title: newTitle} : el)})
+    }
+
+
     return (
         <div className="App">
           <AddItemForm addItem={addTodolist}/>
@@ -97,6 +103,7 @@ function App() {
                                  checkBoxChangeTask={checkBoxChangeTask}
                                  filter={todolist.filter}
                                  removeTodolist={removeTodolist}
+                                 changeTitle={changeTitle}
                 />
                 })}
         </div>

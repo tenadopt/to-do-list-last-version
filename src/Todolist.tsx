@@ -20,6 +20,7 @@ type PropsType = {
     checkBoxChangeTask: (todolistId: string, taskId: string, newIsDoneValue: boolean) => void
     filter: FilterValueType
     removeTodolist: (todolistId: string) => void
+    changeTitle: (todolistId: string, taskId: string, newTitle: string) => void
 }
 
 export const Todolist = (props: PropsType) => {
@@ -40,8 +41,9 @@ export const Todolist = (props: PropsType) => {
         props.changeFilter(props.id, 'Completed')
     }
 
-    const changeTaskHandler = (newTitle: string) => {
-        props.addTask(props.id, newTitle)
+    const changeTaskHandler = (taskId: string, newTitle: string) => {
+        debugger
+        props.changeTitle(props.id, taskId, newTitle)
     }
 
     return (
@@ -60,7 +62,7 @@ export const Todolist = (props: PropsType) => {
                                     const newIsDoneValue = e.currentTarget.checked
                                     props.checkBoxChangeTask(props.id, task.id, newIsDoneValue)
                                 }}/>
-                            <EditebleSpan value={task.title} onChange={changeTaskHandler}/>
+                            <EditebleSpan value={task.title} callBack={(newTitle)=>changeTaskHandler(task.id,newTitle)}/>
                             <button onClick={() => props.removeTask(props.id, task.id)}>✖️</button>
                         </li>
                     )
