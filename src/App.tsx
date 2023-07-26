@@ -43,7 +43,10 @@ function App() {
     )
 
     const checkBoxChangeTask = (todolistId: string, taskId: string, newIsDoneValue: boolean) => {
-        setTask({...tasks, [todolistId]: tasks[todolistId].map(el => el.id===taskId ? {...el, isDone: newIsDoneValue} : el) })
+        setTask({
+            ...tasks,
+            [todolistId]: tasks[todolistId].map(el => el.id === taskId ? {...el, isDone: newIsDoneValue} : el)
+        })
     }
 
     const changeFilter = (todolistId: string, value: FilterValueType) => {
@@ -58,7 +61,7 @@ function App() {
     }
 
     const removeTask = (todolistId: string, id: string) => {
-       setTask({...tasks, [todolistId]: tasks[todolistId].filter(el=>el.id!==id)})
+        setTask({...tasks, [todolistId]: tasks[todolistId].filter(el => el.id !== id)})
     }
 
     const removeTodolist = (todolistsID: string) => {
@@ -70,19 +73,23 @@ function App() {
     const addTodolist = (title: string) => {
         const newTodolistId = v1()
         const newTodolist: TodolistType = {id: newTodolistId, title: title, filter: 'All'}
-        setTodolists([newTodolist,...todolists])
+        setTodolists([newTodolist, ...todolists])
         setTask({...tasks, [newTodolistId]: []})
     }
 
-    const changeTitle = (todolistId: string, taskId: string, newTitle: string) => {
-        debugger
-        setTask({...tasks, [todolistId] : tasks[todolistId].map(el=>el.id===taskId ? {...el, title: newTitle} : el)})
+    const changeTitleTask = (todolistId: string, taskId: string, newTitle: string) => {
+        setTask({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskId ? {...el, title: newTitle} : el)})
     }
 
+    // const changeTodolistTitle = (todolistId: string, newTitle: string) => {
+    //
+    // }
 
     return (
         <div className="App">
-          <AddItemForm addItem={addTodolist}/>
+            <div>
+            <AddItemForm addItem={addTodolist}/>
+            </div>
             {todolists.map(todolist => {
                 let tasksForTodolist = tasks[todolist.id]
 
@@ -103,9 +110,10 @@ function App() {
                                  checkBoxChangeTask={checkBoxChangeTask}
                                  filter={todolist.filter}
                                  removeTodolist={removeTodolist}
-                                 changeTitle={changeTitle}
+                                 changeTitleTask={changeTitleTask}
+                                 // changeTodolistTitle={changeTodolistTitle}
                 />
-                })}
+            })}
         </div>
     );
 }

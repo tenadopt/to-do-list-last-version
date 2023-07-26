@@ -20,13 +20,14 @@ type PropsType = {
     checkBoxChangeTask: (todolistId: string, taskId: string, newIsDoneValue: boolean) => void
     filter: FilterValueType
     removeTodolist: (todolistId: string) => void
-    changeTitle: (todolistId: string, taskId: string, newTitle: string) => void
+    changeTitleTask: (todolistId: string, taskId: string, newTitle: string) => void
+    // changeTodolistTitle: (newTitle: string) => void
 }
 
 export const Todolist = (props: PropsType) => {
 
     const addTaskHandler = (title: string) => {
-            props.addTask(props.id, title)
+        props.addTask(props.id, title)
     }
     const removeTodolistHandler = () => {
         props.removeTodolist(props.id)
@@ -42,14 +43,20 @@ export const Todolist = (props: PropsType) => {
     }
 
     const changeTaskHandler = (taskId: string, newTitle: string) => {
-        debugger
-        props.changeTitle(props.id, taskId, newTitle)
+        props.changeTitleTask(props.id, taskId, newTitle)
     }
+
+    // const changeTodolistHandler = (newTitle: string) => {
+    //     props.changeTodolistTitle(newTitle)
+    // }
 
     return (
         <div>
+            {/*<EditebleSpan value={props.title} callBack={changeTodolistHandler}/>*/}
+            <div style={{display: 'flex', boxSizing: 'border-box'}}>
             <h3>{props.title}</h3>
             <button onClick={removeTodolistHandler}>✖️</button>
+            </div>
             <AddItemForm addItem={addTaskHandler}/>
             <ul>
                 {props.tasks.map((task) => {
@@ -62,7 +69,8 @@ export const Todolist = (props: PropsType) => {
                                     const newIsDoneValue = e.currentTarget.checked
                                     props.checkBoxChangeTask(props.id, task.id, newIsDoneValue)
                                 }}/>
-                            <EditebleSpan value={task.title} callBack={(newTitle)=>changeTaskHandler(task.id,newTitle)}/>
+                            <EditebleSpan value={task.title}
+                                          callBack={(newTitle) => changeTaskHandler(task.id, newTitle)}/>
                             <button onClick={() => props.removeTask(props.id, task.id)}>✖️</button>
                         </li>
                     )

@@ -11,7 +11,7 @@ export const EditebleSpan = (props: EditebleSpanType) => {
     const [editMode, setEditMode] = useState(false)
     const [title, setTitle] = useState(props.value)
 
-    const onChangeTitleHandler = (e:ChangeEvent<HTMLInputElement>) => {
+    const onchangeTitleTaskHandler = (e:ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
@@ -25,6 +25,6 @@ export const EditebleSpan = (props: EditebleSpanType) => {
         }
 
         return editMode ?
-            <input value={title} onChange={onChangeTitleHandler} onBlur={onBlurHandler} /> :
+            <input value={title} onChange={onchangeTitleTaskHandler} onBlur={onBlurHandler} /> :
             <span onDoubleClick={activeEditMode}>{props.value}</span>
     };
