@@ -100,6 +100,7 @@ function App() {
                 if (todolist.filter === 'Completed') {
                     tasksForTodolist = tasks[todolist.id].filter(task => task.isDone)
                 }
+
                 return <Todolist key={todolist.id}
                                  id={todolist.id}
                                  title={todolist.title}
