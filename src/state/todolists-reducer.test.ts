@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {userReducer} from "./user-reducer";
 import {getNewTodolistAC, todolistsReducer} from "./todolists-reducer";
 import {TodolistType} from "../App";
 
