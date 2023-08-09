@@ -20,13 +20,9 @@ beforeEach(() => {
 
 
 test('todolist reducer should remove a todolist', () => {
-
     const endState = todolistsReducer(startState, removeTodolistAC(todolistId1))
-
     expect(endState!.length).toEqual(1);
     expect(endState[0].id).toEqual(todolistId2)
-
-
 })
 
 test('todolist reducer should add new todolist', () => {
