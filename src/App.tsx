@@ -19,6 +19,8 @@ export type TodolistType = {
 //     [key:string]: TaskType[]
 // }
 
+
+
 type TasksType = Record<string, TaskType[]>
 
 function App() {
